@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import * as React from 'react';
 import { AppRegistry } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -13,8 +13,10 @@ export default function App() {
   return (
     <PaperProvider>
       <Header />
-      <Body />
-      <Footer />
+      <ScrollView>
+        <Body />
+        <Footer />
+      </ScrollView>
     </PaperProvider>
   );
 }
