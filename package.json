@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "expo": "~48.0.9",
     "expo-status-bar": "~1.4.4",
     "nativewind": "^2.0.11",
