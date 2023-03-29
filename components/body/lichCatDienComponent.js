@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { ActivityIndicator, Text, useTheme } from 'react-native-paper'
 import * as cheerio from 'cheerio';
+import ScheduleRow from './scheduleRow';
 
 
 const LichCatDienComponent = () => {
@@ -20,7 +21,12 @@ const LichCatDienComponent = () => {
                 pList.push($(e).text());    // find the correct p in the HTML object and push to list
             })
 
-            setSchedule(pList);
+            // filter out first fours p element
+            pList.shift();
+            pList.shift();
+            pList.shift();
+            pList.shift();
+            setSchedule(pList)
         }
 
         getSchedule()
@@ -28,7 +34,7 @@ const LichCatDienComponent = () => {
 
     return (
         <View>
-            {schedule ? schedule.map(e => <Text>{e}</Text>) : <ActivityIndicator animating={true} color={theme.colors.primary} />}
+            {schedule ? schedule.map((e, index) => <ScheduleRow contend={e} key={index} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />}
         </View>
     )
 }
