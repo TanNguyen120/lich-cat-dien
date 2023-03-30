@@ -33,7 +33,13 @@ const ScheduleRow = ({ contend }) => {
     }, [contend])
     return (
         <View className={`${style}`}>
-            {flag === 'danger' ? <Text style={{ color: theme.colors.error }}> {display} </Text> : <Text>{display}</Text>}
+            {flag === 'danger' ? <Text style={{ color: theme.colors.error }}>
+                <IconButton
+                    icon="dangerous"
+                    iconColor={MD3Colors.error50}
+                    size={10}
+                />
+                {display} </Text> : <Text>{display}</Text>}
         </View>
     )
 }
