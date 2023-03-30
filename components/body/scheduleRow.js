@@ -14,7 +14,7 @@ const ScheduleRow = ({ contend }) => {
         let display = contend;
         // check if the contend is date or not
         if (contend.includes('Ngày')) {
-            setStyle(' border-t pt-5');
+            setStyle(' border-t pt-5 ml-3 ');
             display = '* ' + display;
             setDisplay(display);
         } else {
@@ -32,8 +32,8 @@ const ScheduleRow = ({ contend }) => {
 
     }, [contend])
     return (
-        <View className={`${style} flex flex-row`}>
-            {flag === 'danger' ? <Text style={{ color: theme.colors.error }}> <Button mode='contain' icon="fence-electric"></Button> {display}</Text> : <Text>{display}</Text>}
+        <View className={`${style}`}>
+            {flag === 'danger' ? <Text style={{ color: theme.colors.error }}> {display} </Text> : <Text>{display}</Text>}
         </View>
     )
 }

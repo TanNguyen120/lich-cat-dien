@@ -33,7 +33,7 @@ const LichCatDienComponent = () => {
     }, [])
 
     return (
-        <View>
+        <View className=' pr-5'>
             {schedule ? schedule.map((e, index) => <ScheduleRow contend={e} key={index} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />}
         </View>
     )

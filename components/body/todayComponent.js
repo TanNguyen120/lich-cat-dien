@@ -18,7 +18,7 @@ const TodayComponent = () => {
     }, [])
     return (
         <View>
-            <Text className=' ml-4 my-2'>Hôm nay là: {today}</Text>
+            <Text className=' ml-4 my-2'>Hôm nay là: <Text className=' text-xl'>{today}</Text></Text>
         </View>
     )
 }
