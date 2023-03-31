@@ -3,6 +3,8 @@ import { View } from 'react-native'
 import { ActivityIndicator, Text, useTheme } from 'react-native-paper'
 import * as cheerio from 'cheerio';
 import ScheduleRow from './scheduleRow';
+import Notification from '../utility/notification';
+
 
 
 const LichCatDienComponent = () => {
@@ -28,12 +30,16 @@ const LichCatDienComponent = () => {
             pList.shift();
             setSchedule(pList)
         }
-
+        //call back ground 
         getSchedule()
-    }, [])
+    }, []);
+
+
+
 
     return (
         <View className=' pr-5'>
+            <Notification />
             {schedule ? schedule.map((e, index) => <ScheduleRow contend={e} key={index} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />}
         </View>
     )

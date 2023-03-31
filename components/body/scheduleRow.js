@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native';
-import { Button, Text, useTheme } from 'react-native-paper'
+import { Button, IconButton, Text, useTheme } from 'react-native-paper'
 
 const ScheduleRow = ({ contend }) => {
 
@@ -36,7 +36,7 @@ const ScheduleRow = ({ contend }) => {
             {flag === 'danger' ? <Text style={{ color: theme.colors.error }}>
                 <IconButton
                     icon="dangerous"
-                    iconColor={MD3Colors.error50}
+                    iconColor={theme.colors.error}
                     size={10}
                 />
                 {display} </Text> : <Text>{display}</Text>}
