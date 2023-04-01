@@ -58,7 +58,7 @@ export async function schedulePushNotification() {
     const responseHtml = await response.text();     // get raw html string
     const $ = cheerio.load(responseHtml);
     const htmlText = $.text();
-    htmlText.includes('Kiến An') ? bodyNotif = ' Kiến An BỊ CẮT ĐIỆN !!!!! ' : bodyNotif = ' Không có kế hoạch cắt điện cho xã kiến an'
+    htmlText.includes('Kiến An') ? bodyNotif = ' ϟϟ Kiến An BỊ CẮT ĐIỆN !!!!! ' : bodyNotif = 'ヅ Không có kế hoạch cắt điện cho xã kiến An ヅ'
     const id = await Notifications.scheduleNotificationAsync({
         content: {
             title: 'Lịch Cắt Điện An Giang',
@@ -66,7 +66,7 @@ export async function schedulePushNotification() {
             // sound: 'default',
         },
         trigger: {
-            seconds: 20,
+            seconds: 60 * 60 * 12,
             repeats: true
         },
     });

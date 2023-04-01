@@ -35,7 +35,7 @@ const ScheduleRow = ({ contend }) => {
         <View className={`${style}`}>
             {flag === 'danger' ? <Text style={{ color: theme.colors.error }}>
                 <IconButton
-                    icon="dangerous"
+                    icon="sign-caution"
                     iconColor={theme.colors.error}
                     size={10}
                 />
