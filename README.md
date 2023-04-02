@@ -14,3 +14,15 @@ của tỉnh An Giang một cách thuận tiện nhất.
   <li>Thông báo mỗi 12 giờ </li>
   <li>Thông báo nếu Kiến An xuất hiện trong lịch cắt điện</li>
 </ol>
+
+---
+
+## Framework and Libraries
+
+<ol>
+  <li>React Native</li>
+  <li>Expo Framework (expo nofitication, expo eas)</li>
+  <li>Cheerio (web scrapling tool) </li>
+  <li>React Paper</li>
+  <li>Tailwind Css</li>
+</ol>
