@@ -14,12 +14,12 @@ const ScheduleRow = ({ contend }) => {
         let display = contend;
         // check if the contend is date or not
         if (contend.includes('Ngày')) {
-            setStyle(' border-t pt-5 ml-3 ');
-            display = '* ' + display;
+            setStyle(' border-t pt-2 ml-3 mt-6 ');
+            display = '☀ ' + display + ' :';
             setDisplay(display);
         } else {
             display = '- ' + display;
-            setStyle(' ml-5 mt-3 mb-2');
+            setStyle(' ml-5 mt-3');
             setDisplay(display)
         }
 
@@ -28,7 +28,10 @@ const ScheduleRow = ({ contend }) => {
             setStyle(prev => prev + ' text-red-500');
             setFlag('danger');
         }
-
+        // check if cho moi in the things
+        if (contend.includes('Chợ Mới')) {
+            setStyle(prev => prev + ' text-blue-500');
+        }
 
     }, [contend])
     return (
@@ -39,7 +42,7 @@ const ScheduleRow = ({ contend }) => {
                     iconColor={theme.colors.error}
                     size={10}
                 />
-                {display} </Text> : <Text>{display}</Text>}
+                {display} </Text> : <Text className={style}>{display}</Text>}
         </View>
     )
 }
