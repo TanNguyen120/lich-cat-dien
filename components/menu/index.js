@@ -1,21 +1,31 @@
 import * as React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Menu, useTheme } from 'react-native-paper';
+import { List, useTheme, Modal, Portal, } from 'react-native-paper';
 import Footer from '../footer'
 import Header from '../header'
+import SrcModal from './srcModal';
 
 const MenuComponent = ({ navigation }) => {
     const theme = useTheme();
+    const [visible, setVisible] = React.useState(false);
+
     return (
         <View style={{ backgroundColor: theme.colors.primaryContainer }}>
             <ScrollView>
                 <Header navigation={navigation} />
                 <View className='min-h-screen'>
-                    <Menu.Item leadingIcon="redo" onPress={() => { }} title="Redo" />
-                    <Menu.Item leadingIcon="undo" onPress={() => { }} title="Undo" />
-                    <Menu.Item leadingIcon="content-cut" onPress={() => { }} title="Cut" disabled />
-                    <Menu.Item leadingIcon="content-copy" onPress={() => { }} title="Copy" disabled />
-                    <Menu.Item leadingIcon="content-paste" onPress={() => { }} title="Paste" />
+                    <List.Item
+                        title="Nguồn"
+                        description="Chọn nguồn từ trang các web khác nhau"
+                        left={props => <List.Icon {...props} icon="globe-model" />}
+                        onPress={() => { setVisible(true) }}
+                    />
+                    <List.Item
+                        title="Quyền Của Ứng Dụng"
+                        description="Quản lý những quyền mà ứng dụng có trên thiết bị này"
+                        left={props => <List.Icon {...props} icon="folder" />}
+                    />
+                    <SrcModal setVisible={setVisible} visible={visible} />
                 </View>
                 <Footer />
             </ScrollView>
