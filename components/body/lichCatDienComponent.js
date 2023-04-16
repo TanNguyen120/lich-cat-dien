@@ -38,8 +38,32 @@ const LichCatDienComponent = () => {
             const response = await fetch(searchUrl);      // fetch page 
             const responseHtml = await response.text();     // get raw html string
             const $ = cheerio.load(responseHtml);   // use cheerio to load the html for further use
+            const rows = [];
+            // find all the rows of table
+            $('table tr').each(function (i, e) {
+                // because the way array push work (it just assign the variable pointer) so we don have to wait for the each loop and every time the row is create it a new address so the loop will 
+                const row = [];
+                rows.push(row);
+                $(this).find("th, td").each(function (i, e) {
+                    row.push($(this).text().trim());
+                });
+            });
 
-            setSchedule($('table').text())
+            const rowsObj = [];
+            // make a nicer object for each row
+            rows.forEach(element => {
+                const rowData = {
+                    date: element[1],
+                    timeStart: element[2],
+                    timeEnd: element[3],
+                    area: element[4],
+                    reason: element[5],
+                }
+                rowsObj.push(rowData)
+            });
+            rowsObj.shift()
+            console.log(rows);
+            setSchedule(rowsObj)
         }
 
         //call back ground 
