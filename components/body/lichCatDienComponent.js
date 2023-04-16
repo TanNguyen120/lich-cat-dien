@@ -11,7 +11,8 @@ const LichCatDienComponent = () => {
     const [schedule, setSchedule] = useState(null);
     const theme = useTheme()
     useEffect(() => {
-        const getSchedule = async () => {
+        // crawl info from cungcau.net
+        const getScheduleFromCungCau = async () => {
             const searchUrl = `https://cungcau.net/index.php/20-bai-viet-cua-admin/3-thong-bao-k-hoch-ct-din-an-giang`;
             const response = await fetch(searchUrl);      // fetch page 
             const responseHtml = await response.text();     // get raw html string
@@ -30,8 +31,19 @@ const LichCatDienComponent = () => {
             pList.shift();
             setSchedule(pList)
         }
+
+        // crawl info from 
+        const getScheduleFromIthongTin = async () => {
+            const searchUrl = `https://ithongtin.com/lich-cup-dien/an-giang/cho-moi`;
+            const response = await fetch(searchUrl);      // fetch page 
+            const responseHtml = await response.text();     // get raw html string
+            const $ = cheerio.load(responseHtml);   // use cheerio to load the html for further use
+
+            setSchedule($('table').text())
+        }
+
         //call back ground 
-        getSchedule()
+        getScheduleFromIthongTin()
     }, []);
 
 
@@ -40,7 +52,10 @@ const LichCatDienComponent = () => {
     return (
         <View className=' pr-5'>
             <Notification />
-            {schedule ? schedule.map((e, index) => <ScheduleRow contend={e} key={index} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />}
+            {/* {schedule ? schedule.map((e, index) => <ScheduleRow contend={e} key={index} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />} */}
+            <Text>
+                {JSON.stringify(schedule)}
+            </Text>
         </View>
     )
 }
