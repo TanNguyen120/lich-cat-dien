@@ -4,7 +4,7 @@ import { ActivityIndicator, Text, useTheme } from 'react-native-paper'
 import * as cheerio from 'cheerio';
 import ScheduleRow from './scheduleRow';
 import Notification from '../utility/notification';
-
+import IthongTinSchedule from './ithongTinSchedule';
 
 
 const LichCatDienComponent = () => {
@@ -57,15 +57,15 @@ const LichCatDienComponent = () => {
                     timeStart: element[2],
                     timeEnd: element[3],
                     area: element[4],
-                    reason: element[5],
+                    detailArea: element[5],
+                    reason: element[6]
                 }
                 rowsObj.push(rowData)
             });
-            rowsObj.shift()
-            console.log(rows);
+            rowsObj.shift();
+
             setSchedule(rowsObj)
         }
-
         //call back ground 
         getScheduleFromIthongTin()
     }, []);
@@ -77,9 +77,7 @@ const LichCatDienComponent = () => {
         <View className=' pr-5'>
             <Notification />
             {/* {schedule ? schedule.map((e, index) => <ScheduleRow contend={e} key={index} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />} */}
-            <Text>
-                {JSON.stringify(schedule)}
-            </Text>
+            <IthongTinSchedule schedule={schedule} />
         </View>
     )
 }
