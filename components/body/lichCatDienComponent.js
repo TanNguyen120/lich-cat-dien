@@ -5,11 +5,30 @@ import * as cheerio from 'cheerio';
 import ScheduleRow from './scheduleRow';
 import Notification from '../utility/notification';
 import IthongTinSchedule from './ithongTinSchedule';
+import CungCauSchedule from './cungCauSchedule';
 
 
-const LichCatDienComponent = () => {
+// this will condition render base on src
+const ConditionSchedule = ({ currentSrc, schedule }) => {
+    const theme = useTheme()
+    switch (currentSrc) {
+        case 'iThongTin':
+            return <IthongTinSchedule schedule={schedule} />
+        case 'CungCau':
+            return <CungCauSchedule schedule={schedule} />
+        default:
+            return <ActivityIndicator animating={true} color={theme.colors.primary} />
+    }
+}
+
+
+const LichCatDienComponent = ({ currentSrc }) => {
+
     const [schedule, setSchedule] = useState(null);
     const theme = useTheme()
+    // chooseSrc Effect
+
+    // craw info effect
     useEffect(() => {
         // crawl info from cungcau.net
         const getScheduleFromCungCau = async () => {
@@ -66,9 +85,25 @@ const LichCatDienComponent = () => {
 
             setSchedule(rowsObj)
         }
-        //call back ground 
-        getScheduleFromIthongTin()
-    }, []);
+        //get thing base on src 
+        console.log('api call of:' + currentSrc)
+
+        setSchedule(null);
+        if (currentSrc !== null) {
+            switch (currentSrc) {
+                case 'CungCau':
+
+                    getScheduleFromCungCau();
+                    break;
+                case 'iThongTin':
+
+                    getScheduleFromIthongTin();
+                    break
+                default:
+                    break;
+            }
+        }
+    }, [currentSrc]);
 
 
 
@@ -76,8 +111,7 @@ const LichCatDienComponent = () => {
     return (
         <View className=' pr-5'>
             <Notification />
-            {/* {schedule ? schedule.map((e, index) => <ScheduleRow contend={e} key={index} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />} */}
-            <IthongTinSchedule schedule={schedule} />
+            {schedule ? <ConditionSchedule currentSrc={currentSrc} schedule={schedule} /> : <ActivityIndicator animating={true} color={theme.colors.primary} />}
         </View>
     )
 }

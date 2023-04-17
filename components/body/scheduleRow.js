@@ -11,6 +11,7 @@ const ScheduleRow = ({ contend }) => {
 
 
     useEffect(() => {
+
         let display = contend;
         // check if the contend is date or not
         if (contend.includes('Ngày')) {

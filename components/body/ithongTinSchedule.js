@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { View } from 'react-native'
 import { ActivityIndicator, Text, useTheme } from 'react-native-paper'
@@ -45,7 +46,7 @@ const IthongTinSchedule = ({ schedule }) => {
     return (
         <View className=' m-5 p-3 min-h-screen'>
             <View className=' grid grid-cols-1 divide-y'>
-                {schedule ? schedule.map(e => <ScheduleRow rowData={e} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />}
+                {schedule ? schedule.map((e, index) => <ScheduleRow rowData={e} key={index} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />}
             </View>
         </View>
     )

@@ -18,7 +18,7 @@ const SrcModal = ({ visible, setVisible }) => {
                 if (value !== null) {
                     // value previously stored
                     console.log('current src is: ' + value);
-                    setCurrentSrc(currentSrc);
+                    setCurrentSrc(value);
                 } else {
                     await AsyncStorage.setItem('@src', 'CungCau');
                     console.log('new value added')
