@@ -92,11 +92,9 @@ const LichCatDienComponent = ({ currentSrc, refreshing }) => {
         if (currentSrc !== null) {
             switch (currentSrc) {
                 case 'CungCau':
-
                     getScheduleFromCungCau();
                     break;
                 case 'iThongTin':
-
                     getScheduleFromIthongTin();
                     break
                 default:

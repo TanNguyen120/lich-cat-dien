@@ -1,13 +1,21 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { ActivityIndicator, Text, useTheme } from 'react-native-paper'
 import { List, MD3Colors } from 'react-native-paper';
 
 
 const ScheduleRow = ({ rowData }) => {
+    const [flag, setFlag] = React.useState('normal');
+    React.useEffect(() => {
+        console.log(rowData)
+        if (rowData.detailArea.includes('Kiến An')) {
+            setFlag('danger')
+        }
+    }, [rowData])
     const theme = useTheme();
     return (
+
         <View className='grid grid-cols-2 border-b border-slate-300 py-6'>
             <View>
                 <List.Section>
@@ -22,10 +30,17 @@ const ScheduleRow = ({ rowData }) => {
                     />
                 </List.Section>
             </View>
-            <View className=' grid grid-cols-1'>
-                <Text className=' m-3' variant='bodyMedium'>
-                    {`${rowData.detailArea}`}
-                </Text>
+            <View className=' grid grid-cols-1' >
+                {
+                    flag === 'danger' ?
+                        <Text className=' m-3' variant='bodyLarge' style={{ color: 'red' }}>
+                            {`${rowData.detailArea}`}
+                        </Text>
+                        :
+                        <Text className=' m-3' variant='bodyMedium'>
+                            {`${rowData.detailArea}`}
+                        </Text>
+                }
                 <Text className=' m-3 ' variant='labelMedium' style={{ color: theme.colors.secondary }}>
                     {`Lý Do: ${rowData.reason}`}
                 </Text>
