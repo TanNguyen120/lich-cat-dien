@@ -41,7 +41,7 @@ const Body = ({ navigation }) => {
     }, [refreshing])
     const theme = useTheme()
     return (
-        <View className='min-h-screen' style={{ backgroundColor: theme.colors.primaryContainer }}>
+        <View className='min-h-screen ' style={{ backgroundColor: theme.colors.primaryContainer }}>
             <ScrollView
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -50,7 +50,7 @@ const Body = ({ navigation }) => {
                 <Header navigation={navigation} />
                 <TodayComponent />
                 <Divider />
-                <LichCatDienComponent currentSrc={src} />
+                <LichCatDienComponent currentSrc={src} refreshing={onRefresh} />
                 <StatusBar className=' bg-slate-600' />
                 <Footer />
             </ScrollView>

@@ -22,7 +22,7 @@ const ConditionSchedule = ({ currentSrc, schedule }) => {
 }
 
 
-const LichCatDienComponent = ({ currentSrc }) => {
+const LichCatDienComponent = ({ currentSrc, refreshing }) => {
 
     const [schedule, setSchedule] = useState(null);
     const theme = useTheme()
@@ -103,13 +103,13 @@ const LichCatDienComponent = ({ currentSrc }) => {
                     break;
             }
         }
-    }, [currentSrc]);
+    }, [currentSrc, refreshing]);
 
 
 
 
     return (
-        <View className=' pr-5'>
+        <View className=' pr-5 pb-5'>
             <Notification />
             {schedule ? <ConditionSchedule currentSrc={currentSrc} schedule={schedule} /> : <ActivityIndicator animating={true} color={theme.colors.primary} />}
         </View>
