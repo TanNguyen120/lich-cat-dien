@@ -22,7 +22,7 @@ const Header = ({ navigation }) => {
 
     return (
         <Appbar.Header style={{ backgroundColor: theme.colors.primary, }}>
-            <Appbar.Content color={theme.colors.secondaryContainer} title="Lịch Cắt Điện Mới Nhất " />
+            <Appbar.Content color={theme.colors.secondaryContainer} title="Lịch Cắt Điện Mới Nhất " onPress={() => navigation.navigate('Home')} />
             <Appbar.Action color={theme.colors.secondaryContainer} icon="calendar" onPress={() => { handelOpenCalender() }} />
             <Appbar.Action color={theme.colors.secondaryContainer} icon="cog" onPress={() => { navigation.navigate('Menu') }} />
         </Appbar.Header>

@@ -9,8 +9,10 @@ const ScheduleRow = ({ rowData }) => {
     const [flag, setFlag] = React.useState('normal');
     React.useEffect(() => {
         console.log(rowData)
-        if (rowData.detailArea.includes('Kiến An')) {
-            setFlag('danger')
+        if (rowData) {
+            if (rowData.detailArea.includes('Kiến An')) {
+                setFlag('danger')
+            }
         }
     }, [rowData])
     const theme = useTheme();
