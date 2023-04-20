@@ -22,6 +22,7 @@ const Body = ({ navigation }) => {
 
     React.useEffect(() => {
         const getSettingData = async () => {
+            console.log('refreshing')
             try {
                 const value = await AsyncStorage.getItem('@src')
                 if (value !== null) {

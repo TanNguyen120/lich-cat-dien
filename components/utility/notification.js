@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import * as Notifications from "expo-notifications";
 import * as cheerio from 'cheerio';
 import * as Device from 'expo-device'
+import { getScheduleFromIthongTin } from './webCrawling';
 
 
 // define the notification style
@@ -52,18 +53,22 @@ const Notification = () => {
 }
 
 export async function schedulePushNotification() {
-    let bodyNotif = '';
-    const searchUrl = `https://cungcau.net/index.php/20-bai-viet-cua-admin/3-thong-bao-k-hoch-ct-din-an-giang`;
-    const response = await fetch(searchUrl);      // fetch page 
-    const responseHtml = await response.text();     // get raw html string
-    const $ = cheerio.load(responseHtml);
-    const htmlText = $.text();
-    htmlText.includes('Kiến An') ? bodyNotif = ' ϟϟ Kiến An BỊ CẮT ĐIỆN !!!!! ' : bodyNotif = 'ヅ Không có kế hoạch cắt điện cho xã kiến An ヅ'
+    const scheduleObjs = await getScheduleFromIthongTin();
+
+    // the default message is not thing in the schedule and the latest date the the schedule object have 
+    let bodyNotif = `ヅ Không có kế hoạch cắt điện cho xã kiến An ヅ (Lịch đến ngày ${scheduleObjs[scheduleObjs.length - 1].date})`;
+    for await (const scheduleObj of scheduleObjs) {
+        if (scheduleObj.detailArea.includes('Kiến An')) {
+            console.log("KIEN AN: " + JSON.stringify(scheduleObj))
+            bodyNotif = `ϟϟ Kiến An BỊ CẮT ĐIỆN Vào Ngày ${scheduleObj.date} Từ ${scheduleObj.timeStart} Đến ${scheduleObj.timeEnd} (>_<) ! -- ✩ (Lịch đến ngày ${scheduleObjs[scheduleObjs.length - 1].date})`
+        }
+    }
+    // htmlText.includes('Kiến An') ? bodyNotif = ' ϟϟ Kiến An BỊ CẮT ĐIỆN !!!!! ' : bodyNotif = 'ヅ Không có kế hoạch cắt điện cho xã kiến An ヅ'
     const id = await Notifications.scheduleNotificationAsync({
         content: {
             title: 'Lịch Cắt Điện An Giang',
             body: bodyNotif,
-            // sound: 'default',
+            sound: 'default',
         },
         trigger: {
             seconds: 60 * 60 * 12,

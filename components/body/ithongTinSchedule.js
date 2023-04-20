@@ -8,7 +8,7 @@ import { List, MD3Colors } from 'react-native-paper';
 const ScheduleRow = ({ rowData }) => {
     const [flag, setFlag] = React.useState('normal');
     React.useEffect(() => {
-        console.log(rowData)
+
         if (rowData) {
             if (rowData.detailArea.includes('Kiến An')) {
                 setFlag('danger')
