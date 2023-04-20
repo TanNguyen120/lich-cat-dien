@@ -4,6 +4,8 @@ import { List, useTheme, Modal, Portal, } from 'react-native-paper';
 import Footer from '../footer'
 import Header from '../header'
 import SrcModal from './srcModal';
+import { Linking } from 'react-native';
+
 
 const MenuComponent = ({ navigation }) => {
     const theme = useTheme();
@@ -24,6 +26,7 @@ const MenuComponent = ({ navigation }) => {
                         title="Quyền Của Ứng Dụng"
                         description="Quản lý những quyền mà ứng dụng có trên thiết bị này"
                         left={props => <List.Icon {...props} icon="folder" />}
+                        onPress={() => { Linking.openSettings() }}
                     />
                     <SrcModal setVisible={setVisible} visible={visible} />
                 </View>
@@ -34,3 +37,4 @@ const MenuComponent = ({ navigation }) => {
 };
 
 export default MenuComponent;
+

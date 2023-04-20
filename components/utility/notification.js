@@ -35,7 +35,7 @@ const Notification = () => {
 
         responseListener.current =
             Notifications.addNotificationResponseReceivedListener((response) => {
-                console.log("notification res:" + response);
+                console.log("notification res:" + JSON.stringify(response));
             });
 
         schedulePushNotification();
@@ -59,7 +59,6 @@ export async function schedulePushNotification() {
     let bodyNotif = `ヅ Không có kế hoạch cắt điện cho xã kiến An ヅ (Lịch đến ngày ${scheduleObjs[scheduleObjs.length - 1].date})`;
     for await (const scheduleObj of scheduleObjs) {
         if (scheduleObj.detailArea.includes('Kiến An')) {
-            console.log("KIEN AN: " + JSON.stringify(scheduleObj))
             bodyNotif = `ϟϟ Kiến An BỊ CẮT ĐIỆN Vào Ngày ${scheduleObj.date} Từ ${scheduleObj.timeStart} Đến ${scheduleObj.timeEnd} (>_<) ! -- ✩ (Lịch đến ngày ${scheduleObjs[scheduleObjs.length - 1].date})`
         }
     }
