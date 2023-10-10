@@ -13,6 +13,8 @@ của tỉnh An Giang một cách thuận tiện nhất.
   <li>Tự động đánh dấu lịch cắt điện của xã Kiến An nếu có lịch cắt điện</li>
   <li>Thông báo mỗi 12 giờ </li>
   <li>Thông báo nếu Kiến An xuất hiện trong lịch cắt điện</li>
+  <li>Chọn Lịch cắt điện từ nhiều nguồn</li>
+  <li>Kéo lên để tải lại trang</li>
 </ol>
 
 ---
@@ -25,4 +27,5 @@ của tỉnh An Giang một cách thuận tiện nhất.
   <li>Cheerio (web scrapling tool) </li>
   <li>React Paper</li>
   <li>Tailwind Css</li>
+  <li>React native storage sync</li>  
 </ol>
