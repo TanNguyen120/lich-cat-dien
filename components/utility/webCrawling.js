@@ -23,6 +23,7 @@ const getScheduleFromIthongTin = async () => {
         const rowsObj = [];
         // make a nicer object for each row
         rows.forEach(element => {
+
             const rowData = {
                 date: element[1],
                 timeStart: element[2],
@@ -34,6 +35,11 @@ const getScheduleFromIthongTin = async () => {
             rowsObj.push(rowData)
         });
         rowsObj.shift();
+        if (rowsObj.length == 0) {
+            return {
+                message: "Không có lịch cắt điện cho Chợ Mới"
+            }
+        }
         return rowsObj;
     } catch (error) {
         console.log(JSON.stringify(error))
@@ -65,6 +71,9 @@ const getScheduleFromCungCau = async () => {
         return pList;
     } catch (error) {
         console.log(JSON.stringify(error))
+        return {
+            message: "không có lịch cắt điện"
+        }
     }
 }
 

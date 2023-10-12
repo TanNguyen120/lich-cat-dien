@@ -5,6 +5,13 @@ import ScheduleRow from './scheduleRow'
 
 const CungCauSchedule = ({ schedule }) => {
     const theme = useTheme();
+    if (schedule.message) {
+        return (
+            <View>
+                {schedule.message}
+            </View>
+        )
+    }
     return (
         <View>{
             schedule ? schedule.map((e, index) => <ScheduleRow contend={e} key={index} />) : <ActivityIndicator animating={true} color={theme.colors.primary} />

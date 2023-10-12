@@ -10,45 +10,58 @@ const ScheduleRow = ({ rowData }) => {
     React.useEffect(() => {
 
         if (rowData) {
-            if (rowData.detailArea.includes('Kiến An')) {
-                setFlag('danger')
+            if (rowData.detailArea) {
+                if (rowData.detailArea.includes('Kiến An')) {
+                    setFlag('danger')
+                }
             }
         }
     }, [rowData])
     const theme = useTheme();
-    return (
+    if (rowData.message) {
+        return (
+            <View className='grid grid-cols-2 border-b border-slate-300 py-6'>
+                <View>
+                    <Text>{rowData.message}</Text>
+                </View>
+            </View>
+        )
+    }
+    else {
+        return (
+            <View className='grid grid-cols-2 border-b border-slate-300 py-6'>
+                <View>
+                    <List.Section>
+                        <List.Item titleStyle={{ fontWeight: '800' }} title={`Ngày: ${rowData.date}`} left={() => <List.Icon icon="calendar-blank-outline" />} />
+                        <List.Item
+                            title={`Tại: ${rowData.area}`}
+                            left={() => <List.Icon icon="lighthouse" />}
+                        />
+                        <List.Item
+                            title={`Từ: ${rowData.timeStart} => Đến: ${rowData.timeEnd}`}
+                            left={() => <List.Icon icon="clock-time-four-outline" />}
+                        />
+                    </List.Section>
+                </View>
+                <View className=' grid grid-cols-1' >
+                    {
+                        flag === 'danger' ?
+                            <Text className=' m-3' variant='bodyLarge' style={{ color: 'red' }}>
+                                {`${rowData.detailArea}`}
+                            </Text>
+                            :
+                            <Text className=' m-3' variant='bodyMedium'>
+                                {`${rowData.detailArea}`}
+                            </Text>
+                    }
+                    <Text className=' m-3 ' variant='labelMedium' style={{ color: theme.colors.secondary }}>
+                        {`Lý Do: ${rowData.reason}`}
+                    </Text>
+                </View>
+            </View >
+        )
+    }
 
-        <View className='grid grid-cols-2 border-b border-slate-300 py-6'>
-            <View>
-                <List.Section>
-                    <List.Item titleStyle={{ fontWeight: '800' }} title={`Ngày: ${rowData.date}`} left={() => <List.Icon icon="calendar-blank-outline" />} />
-                    <List.Item
-                        title={`Tại: ${rowData.area}`}
-                        left={() => <List.Icon icon="lighthouse" />}
-                    />
-                    <List.Item
-                        title={`Từ: ${rowData.timeStart} => Đến: ${rowData.timeEnd}`}
-                        left={() => <List.Icon icon="clock-time-four-outline" />}
-                    />
-                </List.Section>
-            </View>
-            <View className=' grid grid-cols-1' >
-                {
-                    flag === 'danger' ?
-                        <Text className=' m-3' variant='bodyLarge' style={{ color: 'red' }}>
-                            {`${rowData.detailArea}`}
-                        </Text>
-                        :
-                        <Text className=' m-3' variant='bodyMedium'>
-                            {`${rowData.detailArea}`}
-                        </Text>
-                }
-                <Text className=' m-3 ' variant='labelMedium' style={{ color: theme.colors.secondary }}>
-                    {`Lý Do: ${rowData.reason}`}
-                </Text>
-            </View>
-        </View >
-    )
 }
 
 
