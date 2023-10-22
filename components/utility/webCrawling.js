@@ -1,13 +1,57 @@
 
 import * as cheerio from 'cheerio';
+import Storage from 'react-native-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// retrieve schedule
+const retrieveData = async () => {
+    try {
+        const value = await AsyncStorage.getItem('SCHEDULE');
+        if (value !== null) {
+            // We have data!!
+
+            console.log(value);
+            return value
+        } else {
+            console.log('no data');
+            return null;
+        }
+    } catch (error) {
+        // Error retrieving data
+        console.error(error);
+        return null;
+    }
+};
+
+// storeSchedule
+const storeData = async (scheduleString) => {
+    try {
+        await AsyncStorage.setItem(
+            'SCHEDULE',
+            scheduleString,
+        );
+        console.log('saved data to async storage')
+        return true;
+    } catch (error) {
+        // Error saving data
+        console.error(error)
+    }
+};
 
 // crawl info from ithongTin
 const getScheduleFromIthongTin = async () => {
     try {
+        let responseHtml = null;
+        responseHtml = retrieveData();
 
-        const searchUrl = `https://ithongtin.com/lich-cup-dien/an-giang/cho-moi`;
-        const response = await fetch(searchUrl);      // fetch page 
-        const responseHtml = await response.text();     // get raw html string
+        // if the schedule did not stored before. Crawl from the internet
+        if (responseHtml == null) {
+
+            const searchUrl = `https://ithongtin.com/lich-cup-dien/an-giang/cho-moi`;
+            const response = await fetch(searchUrl);      // fetch page 
+            responseHtml = await response.text();     // get raw html string
+            // then store data too
+            storeData(responseHtml);
+        }
         const $ = cheerio.load(responseHtml);   // use cheerio to load the html for further use
         const rows = [];
         // find all the rows of table
