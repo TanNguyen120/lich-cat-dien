@@ -27,13 +27,13 @@ const storage = new Storage({
 
 //============================================================================================================
 
-function saveSchedule(scheduleString) {
+async function saveSchedule(scheduleString) {
     try {
 
         // Save something with key only. (using only a keyname but no id)
         // This key should be unique. This is for data frequently used.
         // The key and value pair is permanently stored unless you remove it yourself.
-        storage.save({
+        await storage.save({
             key: 'schedule', // Note: Do not use underscore("_") in key!
             data: scheduleString,
 
@@ -51,47 +51,51 @@ function saveSchedule(scheduleString) {
 
 
 // load
-storage
-    .load({
-        key: 'schedule',
+async function loadSchedule() {
+    storage
+        .load({
+            key: 'schedule',
 
-        // autoSync (default: true) means if data is not found or has expired,
-        // then invoke the corresponding sync method
-        autoSync: true,
+            // autoSync (default: true) means if data is not found or has expired,
+            // then invoke the corresponding sync method
+            autoSync: true,
 
-        // syncInBackground (default: true) means if data expired,
-        // return the outdated data first while invoking the sync method.
-        // If syncInBackground is set to false, and there is expired data,
-        // it will wait for the new data and return only after the sync completed.
-        // (This, of course, is slower)
-        syncInBackground: true,
+            // syncInBackground (default: true) means if data expired,
+            // return the outdated data first while invoking the sync method.
+            // If syncInBackground is set to false, and there is expired data,
+            // it will wait for the new data and return only after the sync completed.
+            // (This, of course, is slower)
+            syncInBackground: true,
 
-        // you can pass extra params to the sync method
-        // see sync example below
-        syncParams: {
-            extraFetchOptions: {
-                // blahblah
-            },
-            someFlag: true
-        }
-    })
-    .then(ret => {
-        // found data go to then()
-        console.log(ret.userid);
-    })
-    .catch(err => {
-        // any exception including data not found
-        // goes to catch()
-        console.warn(err.message);
-        switch (err.name) {
-            case 'NotFoundError':
-                // TODO;
-                break;
-            case 'ExpiredError':
+            // you can pass extra params to the sync method
+            // see sync example below
+            syncParams: {
+                extraFetchOptions: {
+                    // blahblah
+                },
+                someFlag: true
+            }
+        })
+        .then(ret => {
+            // found data go to then()
+            console.log("you have save data: " + ret.data);
+            return ret.data;
+        })
+        .catch(err => {
+            // any exception including data not found
+            // goes to catch()
+            console.warn(err.message);
+            switch (err.name) {
+                case 'NotFoundError':
+                    // TODO;
+                    return null
+
+                case 'ExpiredError':
+                    return null
                 // TODO
-                break;
-        }
-    });
+            }
+        });
+}
 
 // --------------------------------------------------
 
@@ -112,61 +116,19 @@ storage.save({
     expires: 1000 * 60
 });
 
-// load
-storage
-    .load({
-        key: 'user',
-        id: '1001'
-    })
-    .then(ret => {
-        // found data goes to then()
-        console.log(ret.userid);
-    })
-    .catch(err => {
-        // any exception including data not found
-        // goes to catch()
-        console.warn(err.message);
-        switch (err.name) {
-            case 'NotFoundError':
-                // TODO;
-                break;
-            case 'ExpiredError':
-                // TODO
-                break;
-        }
-    });
 
-// --------------------------------------------------
-
-// get all ids for "key-id" data under a key,
-// note: does not include "key-only" information (which has no ids)
-storage.getIdsForKey('user').then(ids => {
-    console.log(ids);
-});
-
-// get all the "key-id" data under a key
-// !! important: this does not include "key-only" data
-storage.getAllDataForKey('user').then(users => {
-    console.log(users);
-});
-
-// clear all "key-id" data under a key
-// !! important: "key-only" data is not cleared by this function
-storage.clearMapForKey('user');
-
-// --------------------------------------------------
-
-// remove a single record
-storage.remove({
-    key: 'lastPage'
-});
-storage.remove({
-    key: 'user',
-    id: '1001'
-});
+// storage.remove({
+//     key: 'lastPage'
+// });
+// storage.remove({
+//     key: 'user',
+//     id: '1001'
+// });
 
 // clear map and remove all "key-id" data
 // !! important: "key-only" data is not cleared, and is left intact
 storage.clearMap();
 
+
+export { saveSchedule, loadSchedule };
 export default storage;

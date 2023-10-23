@@ -1,7 +1,7 @@
 
 import * as cheerio from 'cheerio';
-import Storage from 'react-native-storage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadSchedule, saveSchedule } from '../asyncStorage/storage';
+
 // retrieve schedule
 const retrieveData = async () => {
     try {
@@ -41,7 +41,7 @@ const storeData = async (scheduleString) => {
 const getScheduleFromIthongTin = async () => {
     try {
         let responseHtml = null;
-        responseHtml = retrieveData();
+        responseHtml = await loadSchedule();
 
         // if the schedule did not stored before. Crawl from the internet
         if (responseHtml == null) {
@@ -50,7 +50,8 @@ const getScheduleFromIthongTin = async () => {
             const response = await fetch(searchUrl);      // fetch page 
             responseHtml = await response.text();     // get raw html string
             // then store data too
-            storeData(responseHtml);
+            await saveSchedule(responseHtml);
+            console.log('saveSomeThing');
         }
         const $ = cheerio.load(responseHtml);   // use cheerio to load the html for further use
         const rows = [];
